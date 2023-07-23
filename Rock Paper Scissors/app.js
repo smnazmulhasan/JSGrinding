@@ -1,11 +1,5 @@
 const options = ['rock', 'paper', 'scissors'];
 
-function getComputerChoice (){
-    const choise = options[Math.floor(Math.random() * options.length)];
-    return choise;
-}
-
-let computerSelection = getComputerChoice();
 
 function CheckWinner(playerSelection, computerSelection) {
     if (playerSelection == computerSelection){
@@ -36,5 +30,49 @@ function PlayRound(playerSelection, computerSelection){
     }
 }
 
-const playerSelection = prompt("Choose:" ).toLowerCase();
-console.log(PlayRound(playerSelection, computerSelection))
+function getComputerChoice (){
+    const choise = options[Math.floor(Math.random() * options.length)];
+    return choise;
+}
+
+function getPlayerChoice() {
+    let validatedInput = false;
+    while(validatedInput == false){
+        const choise = prompt("Rock, Paper or Scissors?").toLowerCase();
+        if (choise == null) continue;
+        if (options.includes(choise)){
+            validatedInput = true;
+            return choise;
+        }
+
+    }
+}
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    console.log('Gmae Starts')
+    for (let i = 0; i < 5; i++){
+        const computerSelection = getComputerChoice();
+        const playerSelection = getPlayerChoice();
+        console.log(PlayRound(playerSelection, computerSelection));
+        const round = CheckWinner(playerSelection, computerSelection);
+        if (round == 'Player'){
+            playerScore++;
+        }
+        else if (round == 'computer'){
+            computerScore++;
+        }
+    }
+    console.log('Game Ends');
+    if (playerScore > computerScore){
+        console.warn('You won the game!')
+    }
+    else if (playerScore < computerScore){
+        console.warn('You are a loser!')
+    }
+    else{
+        console.warn('Game tie! No one wins!')
+    }
+}
+
+game();
